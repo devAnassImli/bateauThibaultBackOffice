@@ -50,6 +50,12 @@
         <p style="font-size: 20px; font-weight: bold;">{{ t.marge }} €</p>
         @if (t.marge < 0) {
           <p style="color: red; font-weight: bold;">⚠️ Alerte marge négative !</p>
+        } @else if (t.confettis) {
+          <p style="color: green; font-weight: bold;">🏆 Exceptionnel !</p>
+          <button (click)="lancerConfettis()" 
+            style="background: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
+            🎉 Célébrer !
+          </button>
         } @else {
           <p style="color: green;">✅ Bénéfice</p>
         }

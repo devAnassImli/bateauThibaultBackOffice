@@ -1,8 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ProductsService } from '../../core/services/products.service';
 import { Historique } from '../../core/historique';
-import { FormsModule } from '@angular/forms';
+import confetti from 'canvas-confetti';
+
 @Component({
   selector: 'app-dashboard',
   imports: [CommonModule, FormsModule],
@@ -92,8 +94,8 @@ export class Dashboard implements OnInit {
     }
   }
 
-  getMargeParTrimestre(): { trimestre: string, marge: number }[] {
-    const resultats: { trimestre: string, marge: number }[] = [];
+  getMargeParTrimestre(): { trimestre: string, marge: number, confettis: boolean }[] {
+    const resultats: { trimestre: string, marge: number, confettis: boolean }[] = [];
     for (let t = 1; t <= 4; t++) {
       const ventes = this.historique
         .filter(h => h.type === 'retrait-par-vente' &&
@@ -103,8 +105,34 @@ export class Dashboard implements OnInit {
         .filter(h => h.type === 'ajout' &&
           Math.ceil((new Date(h.date).getMonth() + 1) / 3) === t)
         .reduce((acc, h) => acc + h.prix * h.quantite, 0);
-      resultats.push({ trimestre: `T${t}`, marge: ventes - achats });
+      resultats.push({ trimestre: `T${t}`, marge: ventes - achats, confettis: false });
     }
+
+    // Calcul confettis : bénéfice double de la moyenne des 6 trimestres précédents
+    for (let i = 0; i < resultats.length; i++) {
+      const benefice = resultats[i].marge;
+      if (benefice > 0) {
+        const sixPrecedents = resultats.slice(Math.max(0, i - 6), i);
+        if (sixPrecedents.length > 0) {
+          const moyennePrecedents = sixPrecedents
+            .filter(t => t.marge > 0)
+            .reduce((acc, t) => acc + t.marge, 0) / sixPrecedents.length;
+          if (benefice >= moyennePrecedents * 2) {
+            resultats[i].confettis = true;
+          }
+        }
+      }
+    }
+
     return resultats;
+  }
+
+  lancerConfettis() {
+    confetti({
+      particleCount: 200,
+      spread: 100,
+      origin: { y: 0.6 },
+      colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff']
+    });
   }
 }
