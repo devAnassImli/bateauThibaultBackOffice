@@ -1,0 +1,153 @@
+[
+  {
+    "id": 1,
+    "produitId": 1,
+    "nom": "Bar de Ligne",
+    "categorie": "poisson",
+    "type": "retrait-par-vente",
+    "quantite": 2,
+    "prix": 25,
+    "date": "2026-01-15"
+  },
+  {
+    "id": 2,
+    "produitId": 2,
+    "nom": "Saumon",
+    "categorie": "poisson",
+    "type": "retrait-par-vente",
+    "quantite": 3,
+    "prix": 18,
+    "date": "2026-02-10"
+  },
+  {
+    "id": 3,
+    "produitId": 4,
+    "nom": "Crevettes",
+    "categorie": "fruitsdermer",
+    "type": "retrait-par-vente",
+    "quantite": 5,
+    "prix": 15,
+    "date": "2026-03-05"
+  },
+  {
+    "id": 4,
+    "produitId": 7,
+    "nom": "Homard",
+    "categorie": "crustace",
+    "type": "retrait-par-vente",
+    "quantite": 1,
+    "prix": 45,
+    "date": "2026-04-20"
+  },
+  {
+    "id": 5,
+
+    "produitId": 1,
+    "nom": "Bar de Ligne",
+    "categorie": "poisson",
+    "type": "ajout",
+    "quantite": 10,
+    "prix": 15,
+    "date": "2026-01-01"
+  },
+  {
+    "id": 6,
+    "produitId": 4,
+    "nom": "Crevettes",
+    "categorie": "fruitsdermer",
+    "type": "ajout",
+    "quantite": 20,
+    "prix": 8,
+    "date": "2026-03-01"
+  },
+  {
+    "id": 7,
+    "produitId": 8,
+    "nom": "Araignée de Mer",
+    "categorie": "crustace",
+    "type": "retrait-par-vente",
+    "quantite": 2,
+    "prix": 35,
+    "date": "2026-05-10"
+  },
+  {
+    "id": 8,
+    "produitId": 3,
+    "nom": "Thon",
+    "categorie": "poisson",
+    "type": "retrait-par-vente",
+    "quantite": 4,
+    "prix": 18,
+    "date": "2026-06-15"
+  },
+  {
+    "id": 9,
+    "produitId": 6,
+    "nom": "Huîtres",
+    "categorie": "fruitsdermer",
+    "type": "retrait-par-vente",
+    "quantite": 6,
+    "prix": 10,
+    "date": "2026-07-20"
+  },
+  {
+    "id": 10,
+    "produitId": 9,
+    "nom": "Crabe",
+    "categorie": "crustace",
+    "type": "retrait-par-vente",
+    "quantite": 3,
+    "prix": 20,
+    "date": "2026-08-05"
+  },
+  {
+    "id": 11,
+    "produitId": 2,
+    "nom": "Saumon",
+    "categorie": "poisson",
+    "type": "retrait-par-vente",
+    "quantite": 5,
+    "prix": 18,
+    "date": "2026-09-12"
+  },
+  {
+    "id": 12,
+    "produitId": 5,
+    "nom": "Moules",
+    "categorie": "fruitsdermer",
+    "type": "retrait-par-vente",
+    "quantite": 8,
+    "prix": 8,
+    "date": "2026-10-18"
+  },
+  {
+    "id": 13,
+    "produitId": 7,
+    "nom": "Homard",
+    "categorie": "crustace",
+    "type": "ajout",
+    "quantite": 5,
+    "prix": 30,
+    "date": "2026-04-01"
+  },
+  {
+    "id": 14,
+    "produitId": 1,
+    "nom": "Bar de Ligne",
+    "categorie": "poisson",
+    "type": "retrait-par-vente",
+    "quantite": 3,
+    "prix": 25,
+    "date": "2026-11-22"
+  },
+  {
+    "id": 15,
+    "produitId": 8,
+    "nom": "Araignée de Mer",
+    "categorie": "crustace",
+    "type": "retrait-par-vente",
+    "quantite": 1,
+    "prix": 25,
+    "date": "2026-12-10"
+  }
+]

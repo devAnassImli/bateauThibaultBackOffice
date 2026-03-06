@@ -1,0 +1,162 @@
+<div style="padding: 20px;">
+  <h1>Gestion des produits</h1>
+
+  <!-- Tableau Poissons -->
+  <h2>Poissons</h2>
+  <table border="1" cellpadding="8" cellspacing="0" style="width:100%; margin-bottom:30px;">
+    <thead style="background-color: #f0f0f0;">
+      <tr>
+        <th>Nom</th>
+        <th>Prix</th>
+        <th>Prix promotion</th>
+        <th>% promotion</th>
+        <th>Stock</th>
+        <th>Vendus</th>
+        <th>Commentaires</th>
+        <th>Modifier stock</th>
+        <th>Modifier % promo</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (produit of poissons; track produit.id) {
+        <tr>
+          <td>{{ produit.nom }}</td>
+          <td>{{ produit.prix }} €</td>
+          <td>{{ produit.enPromotion ? produit.prixPromotion + ' €' : '-' }}</td>
+          <td>{{ produit.enPromotion ? produit.pourcentagePromotion + ' %' : '-' }}</td>
+          <td>{{ produit.quantiteStock }}</td>
+          <td>{{ produit.nombreVendus }}</td>
+          <td>{{ produit.commentaires }}</td>
+          <td>
+            <input type="number" [(ngModel)]="modifications[produit.id].stock"
+              [style.border]="erreurs[produit.id]?.stock ? '2px solid red' : ''"
+              placeholder="Ajouter/Enlever" style="width:100px;" />
+            @if (erreurs[produit.id]?.stock) {
+              <div style="color:red; font-size:12px;">{{ erreurs[produit.id].stock }}</div>
+            }
+          </td>
+          <td>
+            <input type="number" [(ngModel)]="modifications[produit.id].promo"
+              [style.border]="erreurs[produit.id]?.promo ? '2px solid red' : ''"
+              placeholder="% promo" style="width:80px;" min="0" max="100" />
+            @if (erreurs[produit.id]?.promo) {
+              <div style="color:red; font-size:12px;">{{ erreurs[produit.id].promo }}</div>
+            }
+          </td>
+          <td>
+            <button (click)="envoyerProduit(produit)">Envoyer</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <!-- Tableau Fruits de Mer -->
+  <h2>Fruits de Mer</h2>
+  <table border="1" cellpadding="8" cellspacing="0" style="width:100%; margin-bottom:30px;">
+    <thead style="background-color: #f0f0f0;">
+      <tr>
+        <th>Nom</th>
+        <th>Prix</th>
+        <th>Prix promotion</th>
+        <th>% promotion</th>
+        <th>Stock</th>
+        <th>Vendus</th>
+        <th>Commentaires</th>
+        <th>Modifier stock</th>
+        <th>Modifier % promo</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (produit of fruitsdermer; track produit.id) {
+        <tr>
+          <td>{{ produit.nom }}</td>
+          <td>{{ produit.prix }} €</td>
+          <td>{{ produit.enPromotion ? produit.prixPromotion + ' €' : '-' }}</td>
+          <td>{{ produit.enPromotion ? produit.pourcentagePromotion + ' %' : '-' }}</td>
+          <td>{{ produit.quantiteStock }}</td>
+          <td>{{ produit.nombreVendus }}</td>
+          <td>{{ produit.commentaires }}</td>
+          <td>
+            <input type="number" [(ngModel)]="modifications[produit.id].stock"
+              [style.border]="erreurs[produit.id]?.stock ? '2px solid red' : ''"
+              placeholder="Ajouter/Enlever" style="width:100px;" />
+            @if (erreurs[produit.id]?.stock) {
+              <div style="color:red; font-size:12px;">{{ erreurs[produit.id].stock }}</div>
+            }
+          </td>
+          <td>
+            <input type="number" [(ngModel)]="modifications[produit.id].promo"
+              [style.border]="erreurs[produit.id]?.promo ? '2px solid red' : ''"
+              placeholder="% promo" style="width:80px;" min="0" max="100" />
+            @if (erreurs[produit.id]?.promo) {
+              <div style="color:red; font-size:12px;">{{ erreurs[produit.id].promo }}</div>
+            }
+          </td>
+          <td>
+            <button (click)="envoyerProduit(produit)">Envoyer</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <!-- Tableau Crustacés -->
+  <h2>Crustacés</h2>
+  <table border="1" cellpadding="8" cellspacing="0" style="width:100%; margin-bottom:30px;">
+    <thead style="background-color: #f0f0f0;">
+      <tr>
+        <th>Nom</th>
+        <th>Prix</th>
+        <th>Prix promotion</th>
+        <th>% promotion</th>
+        <th>Stock</th>
+        <th>Vendus</th>
+        <th>Commentaires</th>
+        <th>Modifier stock</th>
+        <th>Modifier % promo</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (produit of crustaces; track produit.id) {
+        <tr>
+          <td>{{ produit.nom }}</td>
+          <td>{{ produit.prix }} €</td>
+          <td>{{ produit.enPromotion ? produit.prixPromotion + ' €' : '-' }}</td>
+          <td>{{ produit.enPromotion ? produit.pourcentagePromotion + ' %' : '-' }}</td>
+          <td>{{ produit.quantiteStock }}</td>
+          <td>{{ produit.nombreVendus }}</td>
+          <td>{{ produit.commentaires }}</td>
+          <td>
+            <input type="number" [(ngModel)]="modifications[produit.id].stock"
+              [style.border]="erreurs[produit.id]?.stock ? '2px solid red' : ''"
+              placeholder="Ajouter/Enlever" style="width:100px;" />
+            @if (erreurs[produit.id]?.stock) {
+              <div style="color:red; font-size:12px;">{{ erreurs[produit.id].stock }}</div>
+            }
+          </td>
+          <td>
+            <input type="number" [(ngModel)]="modifications[produit.id].promo"
+              [style.border]="erreurs[produit.id]?.promo ? '2px solid red' : ''"
+              placeholder="% promo" style="width:80px;" min="0" max="100" />
+            @if (erreurs[produit.id]?.promo) {
+              <div style="color:red; font-size:12px;">{{ erreurs[produit.id].promo }}</div>
+            }
+          </td>
+          <td>
+            <button (click)="envoyerProduit(produit)">Envoyer</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <!-- Bouton global -->
+  <button (click)="envoyerTout()" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer; font-size: 16px;">
+    Envoyer données
+  </button>
+
+</div>

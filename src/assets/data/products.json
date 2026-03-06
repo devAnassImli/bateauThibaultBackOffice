@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+    "nom": "Bar de Ligne",
+    "prix": 25,
+    "prixPromotion": 20,
+    "pourcentagePromotion": 20,
+    "quantiteStock": 10,
+    "nombreVendus": 5,
+    "commentaires": "Très frais",
+    "categorie": "poisson",
+    "enPromotion": true
+  },
+  {
+    "id": 2,
+    "nom": "Saumon",
+    "prix": 18,
+    "prixPromotion": 0,
+    "pourcentagePromotion": 0,
+    "quantiteStock": 20,
+    "nombreVendus": 12,
+    "commentaires": "Atlantique",
+    "categorie": "poisson",
+    "enPromotion": false
+  },
+  {
+    "id": 3,
+    "nom": "Thon",
+    "prix": 22,
+    "prixPromotion": 18,
+    "pourcentagePromotion": 18,
+    "quantiteStock": 15,
+    "nombreVendus": 8,
+    "commentaires": "Pêche durable",
+    "categorie": "poisson",
+    "enPromotion": true
+  },
+  {
+    "id": 4,
+    "nom": "Crevettes",
+    "prix": 15,
+    "prixPromotion": 12,
+    "pourcentagePromotion": 20,
+    "quantiteStock": 30,
+    "nombreVendus": 8,
+    "commentaires": "Sauvages",
+    "categorie": "fruitsdermer",
+    "enPromotion": true
+  },
+  {
+    "id": 5,
+    "nom": "Moules",
+    "prix": 8,
+    "prixPromotion": 0,
+    "pourcentagePromotion": 0,
+    "quantiteStock": 50,
+    "nombreVendus": 25,
+    "commentaires": "Bouchot",
+    "categorie": "fruitsdermer",
+    "enPromotion": false
+  },
+  {
+    "id": 6,
+    "nom": "Huîtres",
+    "prix": 12,
+    "prixPromotion": 10,
+    "pourcentagePromotion": 17,
+    "quantiteStock": 40,
+    "nombreVendus": 18,
+    "commentaires": "Bretagne",
+    "categorie": "fruitsdermer",
+    "enPromotion": true
+  },
+  {
+    "id": 7,
+    "nom": "Homard",
+    "prix": 45,
+    "prixPromotion": 0,
+    "pourcentagePromotion": 0,
+    "quantiteStock": 5,
+    "nombreVendus": 2,
+    "commentaires": "Breton",
+    "categorie": "crustace",
+    "enPromotion": false
+  },
+  {
+    "id": 8,
+    "nom": "Araignée de Mer",
+    "prix": 35,
+    "prixPromotion": 25,
+    "pourcentagePromotion": 30,
+    "quantiteStock": 8,
+    "nombreVendus": 3,
+    "commentaires": "Saison",
+    "categorie": "crustace",
+    "enPromotion": true
+  },
+  {
+    "id": 9,
+    "nom": "Crabe",
+    "prix": 20,
+    "prixPromotion": 0,
+    "pourcentagePromotion": 0,
+    "quantiteStock": 12,
+    "nombreVendus": 6,
+    "commentaires": "Frais du jour",
+    "categorie": "crustace",
+    "enPromotion": false
+  }
+]

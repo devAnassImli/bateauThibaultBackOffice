@@ -1,0 +1,60 @@
+<div style="padding: 20px;">
+  <h1>📊 Dashboard - Bateau de Thibault</h1>
+
+  <!-- Filtres -->
+  <div style="margin-bottom: 20px; display: flex; gap: 20px;">
+    <div>
+      <label><b>Période : </b></label>
+      <select [(ngModel)]="filtrePeriode" style="padding: 5px;">
+        <option value="annuel">Annuel</option>
+        <option value="trimestriel">Trimestriel</option>
+        <option value="mensuel">Mensuel</option>
+        <option value="semainier">Semainier</option>
+      </select>
+    </div>
+    <div>
+      <label><b>Catégorie : </b></label>
+      <select [(ngModel)]="filtreCategorie" style="padding: 5px;">
+        <option value="tous">Tous</option>
+        <option value="poisson">Poissons</option>
+        <option value="fruitsdermer">Fruits de Mer</option>
+        <option value="crustace">Crustacés</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div style="display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;">
+    <div style="background: #007bff; color: white; padding: 20px; border-radius: 10px; min-width: 200px;">
+      <h3>Chiffre d'Affaires</h3>
+      <p style="font-size: 24px; font-weight: bold;">{{ getCA() }} €</p>
+    </div>
+    <div [style.background]="getMarge() >= 0 ? '#28a745' : '#dc3545'" style="color: white; padding: 20px; border-radius: 10px; min-width: 200px;">
+      <h3>Marge</h3>
+      <p style="font-size: 24px; font-weight: bold;">{{ getMarge() }} €</p>
+    </div>
+    <div style="background: #ffc107; color: white; padding: 20px; border-radius: 10px; min-width: 200px;">
+      <h3>Impôt prévisionnel</h3>
+      <p style="font-size: 24px; font-weight: bold;">{{ getImpot() }} €</p>
+    </div>
+  </div>
+
+  <!-- Marge par trimestre -->
+  <h2>Marge par trimestre</h2>
+  <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 30px;">
+    @for (t of getMargeParTrimestre(); track t.trimestre) {
+      <div [style.background]="t.marge >= 0 ? '#d4edda' : '#f8d7da'"
+           [style.border]="t.marge >= 0 ? '2px solid #28a745' : '2px solid #dc3545'"
+           style="padding: 15px; border-radius: 10px; min-width: 120px; text-align: center;">
+        <h3>{{ t.trimestre }}</h3>
+        <p style="font-size: 20px; font-weight: bold;">{{ t.marge }} €</p>
+        @if (t.marge < 0) {
+          <p style="color: red; font-weight: bold;">⚠️ Alerte marge négative !</p>
+        } @else {
+          <p style="color: green;">✅ Bénéfice</p>
+        }
+      </div>
+    }
+  </div>
+
+</div>
