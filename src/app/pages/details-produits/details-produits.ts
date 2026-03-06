@@ -16,8 +16,8 @@ export class DetailsProduits implements OnInit {
   poissons: Product[] = [];
   fruitsdermer: Product[] = [];
   crustaces: Product[] = [];
-  modifications: { [id: number]: { stock: number, promo: number } } = {};
-  erreurs: { [id: number]: { stock: string, promo: string } } = {};
+  modifications: { [id: number]: { stock: number, promo: number, prix: number, type: string } } = {};
+  erreurs: { [id: number]: { stock: string, promo: string, prix: string } } = {};
 
   constructor(
     public productsService: ProductsService,
@@ -36,24 +36,21 @@ export class DetailsProduits implements OnInit {
         this.fruitsdermer = this.listeProduits.filter(p => p.categorie === 'fruitsdermer');
         this.crustaces = this.listeProduits.filter(p => p.categorie === 'crustace');
         this.listeProduits.forEach(p => {
-          this.modifications[p.id] = { stock: 0, promo: p.pourcentagePromotion };
-          this.erreurs[p.id] = { stock: '', promo: '' };
+          this.modifications[p.id] = { stock: 0, promo: p.pourcentagePromotion, prix: 0, type: 'retrait-par-vente' };
+          this.erreurs[p.id] = { stock: '', promo: '', prix: '' };
         });
         this.cdr.detectChanges();
       },
-      error: (err) => {
-        console.log('erreur:', err);
-      }
+      error: (err) => console.log('erreur:', err)
     });
   }
 
   validerProduit(produit: Product): boolean {
     let valide = true;
-    this.erreurs[produit.id] = { stock: '', promo: '' };
-
+    this.erreurs[produit.id] = { stock: '', promo: '', prix: '' };
     const modif = this.modifications[produit.id];
 
-    if (modif.stock === null || modif.stock === undefined || isNaN(modif.stock)) {
+    if (modif.stock === null || isNaN(modif.stock)) {
       this.erreurs[produit.id].stock = 'Valeur invalide';
       valide = false;
     } else if (produit.quantiteStock + modif.stock < 0) {
@@ -61,11 +58,13 @@ export class DetailsProduits implements OnInit {
       valide = false;
     }
 
-    if (modif.promo === null || modif.promo === undefined || isNaN(modif.promo)) {
-      this.erreurs[produit.id].promo = 'Valeur invalide';
-      valide = false;
-    } else if (modif.promo < 0 || modif.promo > 100) {
+    if (modif.promo === null || isNaN(modif.promo) || modif.promo < 0 || modif.promo > 100) {
       this.erreurs[produit.id].promo = 'Entre 0 et 100';
+      valide = false;
+    }
+
+    if (modif.type !== 'retrait-par-invendus' && (modif.prix === null || isNaN(modif.prix) || modif.prix < 0)) {
+      this.erreurs[produit.id].prix = 'Prix invalide';
       valide = false;
     }
 
@@ -78,8 +77,10 @@ export class DetailsProduits implements OnInit {
     const modif = this.modifications[produit.id];
     produit.quantiteStock += modif.stock;
     produit.pourcentagePromotion = modif.promo;
+    if (modif.type === 'retrait-par-invendus') modif.prix = 0;
     modif.stock = 0;
-    alert(`Produit ${produit.nom} mis à jour !`);
+    modif.prix = 0;
+    alert(`Produit ${produit.nom} mis à jour ! Type: ${modif.type}`);
     this.cdr.detectChanges();
   }
 

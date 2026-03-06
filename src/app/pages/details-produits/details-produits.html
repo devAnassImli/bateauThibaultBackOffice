@@ -13,7 +13,9 @@
         <th>Stock</th>
         <th>Vendus</th>
         <th>Commentaires</th>
+        <th>Type opération</th>
         <th>Modifier stock</th>
+        <th>Prix associé</th>
         <th>Modifier % promo</th>
         <th>Action</th>
       </tr>
@@ -29,11 +31,30 @@
           <td>{{ produit.nombreVendus }}</td>
           <td>{{ produit.commentaires }}</td>
           <td>
+            <select [(ngModel)]="modifications[produit.id].type" style="padding: 5px;">
+              <option value="ajout">Ajout</option>
+              <option value="retrait-par-vente">Retrait par vente</option>
+              <option value="retrait-par-invendus">Retrait invendus</option>
+            </select>
+          </td>
+          <td>
             <input type="number" [(ngModel)]="modifications[produit.id].stock"
               [style.border]="erreurs[produit.id]?.stock ? '2px solid red' : ''"
               placeholder="Ajouter/Enlever" style="width:100px;" />
             @if (erreurs[produit.id]?.stock) {
               <div style="color:red; font-size:12px;">{{ erreurs[produit.id].stock }}</div>
+            }
+          </td>
+          <td>
+            @if (modifications[produit.id].type !== 'retrait-par-invendus') {
+              <input type="number" [(ngModel)]="modifications[produit.id].prix"
+                [style.border]="erreurs[produit.id]?.prix ? '2px solid red' : ''"
+                placeholder="Prix" style="width:80px;" />
+              @if (erreurs[produit.id]?.prix) {
+                <div style="color:red; font-size:12px;">{{ erreurs[produit.id].prix }}</div>
+              }
+            } @else {
+              <span style="color:gray;">0 €</span>
             }
           </td>
           <td>
@@ -64,7 +85,9 @@
         <th>Stock</th>
         <th>Vendus</th>
         <th>Commentaires</th>
+        <th>Type opération</th>
         <th>Modifier stock</th>
+        <th>Prix associé</th>
         <th>Modifier % promo</th>
         <th>Action</th>
       </tr>
@@ -80,11 +103,30 @@
           <td>{{ produit.nombreVendus }}</td>
           <td>{{ produit.commentaires }}</td>
           <td>
+            <select [(ngModel)]="modifications[produit.id].type" style="padding: 5px;">
+              <option value="ajout">Ajout</option>
+              <option value="retrait-par-vente">Retrait par vente</option>
+              <option value="retrait-par-invendus">Retrait invendus</option>
+            </select>
+          </td>
+          <td>
             <input type="number" [(ngModel)]="modifications[produit.id].stock"
               [style.border]="erreurs[produit.id]?.stock ? '2px solid red' : ''"
               placeholder="Ajouter/Enlever" style="width:100px;" />
             @if (erreurs[produit.id]?.stock) {
               <div style="color:red; font-size:12px;">{{ erreurs[produit.id].stock }}</div>
+            }
+          </td>
+          <td>
+            @if (modifications[produit.id].type !== 'retrait-par-invendus') {
+              <input type="number" [(ngModel)]="modifications[produit.id].prix"
+                [style.border]="erreurs[produit.id]?.prix ? '2px solid red' : ''"
+                placeholder="Prix" style="width:80px;" />
+              @if (erreurs[produit.id]?.prix) {
+                <div style="color:red; font-size:12px;">{{ erreurs[produit.id].prix }}</div>
+              }
+            } @else {
+              <span style="color:gray;">0 €</span>
             }
           </td>
           <td>
@@ -115,7 +157,9 @@
         <th>Stock</th>
         <th>Vendus</th>
         <th>Commentaires</th>
+        <th>Type opération</th>
         <th>Modifier stock</th>
+        <th>Prix associé</th>
         <th>Modifier % promo</th>
         <th>Action</th>
       </tr>
@@ -131,11 +175,30 @@
           <td>{{ produit.nombreVendus }}</td>
           <td>{{ produit.commentaires }}</td>
           <td>
+            <select [(ngModel)]="modifications[produit.id].type" style="padding: 5px;">
+              <option value="ajout">Ajout</option>
+              <option value="retrait-par-vente">Retrait par vente</option>
+              <option value="retrait-par-invendus">Retrait invendus</option>
+            </select>
+          </td>
+          <td>
             <input type="number" [(ngModel)]="modifications[produit.id].stock"
               [style.border]="erreurs[produit.id]?.stock ? '2px solid red' : ''"
               placeholder="Ajouter/Enlever" style="width:100px;" />
             @if (erreurs[produit.id]?.stock) {
               <div style="color:red; font-size:12px;">{{ erreurs[produit.id].stock }}</div>
+            }
+          </td>
+          <td>
+            @if (modifications[produit.id].type !== 'retrait-par-invendus') {
+              <input type="number" [(ngModel)]="modifications[produit.id].prix"
+                [style.border]="erreurs[produit.id]?.prix ? '2px solid red' : ''"
+                placeholder="Prix" style="width:80px;" />
+              @if (erreurs[produit.id]?.prix) {
+                <div style="color:red; font-size:12px;">{{ erreurs[produit.id].prix }}</div>
+              }
+            } @else {
+              <span style="color:gray;">0 €</span>
             }
           </td>
           <td>
