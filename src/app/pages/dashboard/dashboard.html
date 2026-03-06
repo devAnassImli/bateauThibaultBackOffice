@@ -1,63 +1,73 @@
-<div style="padding: 20px;">
-  <h1>📊 Dashboard - Bateau de Thibault</h1>
+<div class="page-container">
+  <h1>📊 Dashboard — Bateau de Thibault</h1>
 
   <!-- Filtres -->
-  <div style="margin-bottom: 20px; display: flex; gap: 20px;">
-    <div>
-      <label><b>Période : </b></label>
-      <select [(ngModel)]="filtrePeriode" style="padding: 5px;">
+  <div class="filtres">
+    <div class="filtre-group">
+      <label>Période</label>
+      <select [(ngModel)]="filtrePeriode">
         <option value="annuel">Annuel</option>
         <option value="trimestriel">Trimestriel</option>
         <option value="mensuel">Mensuel</option>
         <option value="semainier">Semainier</option>
       </select>
     </div>
-    <div>
-      <label><b>Catégorie : </b></label>
-      <select [(ngModel)]="filtreCategorie" style="padding: 5px;">
-        <option value="tous">Tous</option>
-        <option value="poisson">Poissons</option>
-        <option value="fruitsdermer">Fruits de Mer</option>
-        <option value="crustace">Crustacés</option>
+    <div class="filtre-group">
+      <label>Catégorie</label>
+      <select [(ngModel)]="filtreCategorie">
+        <option value="tous">Tous les produits</option>
+        <option value="poisson">🐟 Poissons</option>
+        <option value="fruitsdermer">🦪 Fruits de Mer</option>
+        <option value="crustace">🦞 Crustacés</option>
       </select>
     </div>
   </div>
 
   <!-- KPIs -->
-  <div style="display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;">
-    <div style="background: #007bff; color: white; padding: 20px; border-radius: 10px; min-width: 200px;">
-      <h3>Chiffre d'Affaires</h3>
-      <p style="font-size: 24px; font-weight: bold;">{{ getCA() }} €</p>
+  <div class="kpis">
+    <div class="kpi-card">
+      <div class="kpi-icon" style="background: #e3f2fd;">💰</div>
+      <div class="kpi-info">
+        <h3>Chiffre d'Affaires</h3>
+        <p style="color: #007bff;">{{ getCA() }} €</p>
+      </div>
     </div>
-    <div [style.background]="getMarge() >= 0 ? '#28a745' : '#dc3545'" style="color: white; padding: 20px; border-radius: 10px; min-width: 200px;">
-      <h3>Marge</h3>
-      <p style="font-size: 24px; font-weight: bold;">{{ getMarge() }} €</p>
+    <div class="kpi-card">
+      <div class="kpi-icon" style="background: #e8f5e9;">📈</div>
+      <div class="kpi-info">
+        <h3>Marge</h3>
+        <p [style.color]="getMarge() >= 0 ? '#28a745' : '#dc3545'">{{ getMarge() }} €</p>
+      </div>
     </div>
-    <div style="background: #ffc107; color: white; padding: 20px; border-radius: 10px; min-width: 200px;">
-      <h3>Impôt prévisionnel</h3>
-      <p style="font-size: 24px; font-weight: bold;">{{ getImpot() }} €</p>
+    <div class="kpi-card">
+      <div class="kpi-icon" style="background: #fff8e1;">🏦</div>
+      <div class="kpi-info">
+        <h3>Impôt prévisionnel</h3>
+        <p style="color: #ff6b35;">{{ getImpot() }} €</p>
+      </div>
     </div>
   </div>
 
   <!-- Marge par trimestre -->
   <h2>Marge par trimestre</h2>
-  <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 30px;">
+  <div class="trimestres">
     @for (t of getMargeParTrimestre(); track t.trimestre) {
-      <div [style.background]="t.marge >= 0 ? '#d4edda' : '#f8d7da'"
-           [style.border]="t.marge >= 0 ? '2px solid #28a745' : '2px solid #dc3545'"
-           style="padding: 15px; border-radius: 10px; min-width: 120px; text-align: center;">
+      <div class="trimestre-card"
+        [class.statut-negatif]="t.marge < 0"
+        [class.statut-positif]="t.marge >= 0 && !t.confettis"
+        [class.statut-exceptionnel]="t.confettis">
         <h3>{{ t.trimestre }}</h3>
-        <p style="font-size: 20px; font-weight: bold;">{{ t.marge }} €</p>
+        <p class="montant" [style.color]="t.marge < 0 ? '#dc3545' : t.confettis ? '#856404' : '#28a745'">
+          {{ t.marge }} €
+        </p>
         @if (t.marge < 0) {
-          <p style="color: red; font-weight: bold;">⚠️ Alerte marge négative !</p>
+          <span class="statut">⚠️ Marge négative</span>
         } @else if (t.confettis) {
-          <p style="color: green; font-weight: bold;">🏆 Exceptionnel !</p>
-          <button (click)="lancerConfettis()" 
-            style="background: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
-            🎉 Célébrer !
-          </button>
+          <span class="statut">🏆 Exceptionnel !</span>
+          <br>
+          <button class="btn-confetti" (click)="lancerConfettis()">🎉 Célébrer !</button>
         } @else {
-          <p style="color: green;">✅ Bénéfice</p>
+          <span class="statut">✅ Bénéfice</span>
         }
       </div>
     }

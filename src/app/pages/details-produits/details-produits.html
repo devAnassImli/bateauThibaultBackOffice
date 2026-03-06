@@ -1,225 +1,266 @@
-<div style="padding: 20px;">
-  <h1>Gestion des produits</h1>
+<div class="page-container">
+  <h1>📦 Gestion des produits</h1>
 
   <!-- Tableau Poissons -->
-  <h2>Poissons</h2>
-  <table border="1" cellpadding="8" cellspacing="0" style="width:100%; margin-bottom:30px;">
-    <thead style="background-color: #f0f0f0;">
-      <tr>
-        <th>Nom</th>
-        <th>Prix</th>
-        <th>Prix promotion</th>
-        <th>% promotion</th>
-        <th>Stock</th>
-        <th>Vendus</th>
-        <th>Commentaires</th>
-        <th>Type opération</th>
-        <th>Modifier stock</th>
-        <th>Prix associé</th>
-        <th>Modifier % promo</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (produit of poissons; track produit.id) {
+  <h2>🐟 Poissons</h2>
+  <div class="table-wrapper">
+    <table>
+      <thead>
         <tr>
-          <td>{{ produit.nom }}</td>
-          <td>{{ produit.prix }} €</td>
-          <td>{{ produit.enPromotion ? produit.prixPromotion + ' €' : '-' }}</td>
-          <td>{{ produit.enPromotion ? produit.pourcentagePromotion + ' %' : '-' }}</td>
-          <td>{{ produit.quantiteStock }}</td>
-          <td>{{ produit.nombreVendus }}</td>
-          <td>{{ produit.commentaires }}</td>
-          <td>
-            <select [(ngModel)]="modifications[produit.id].type" style="padding: 5px;">
-              <option value="ajout">Ajout</option>
-              <option value="retrait-par-vente">Retrait par vente</option>
-              <option value="retrait-par-invendus">Retrait invendus</option>
-            </select>
-          </td>
-          <td>
-            <input type="number" [(ngModel)]="modifications[produit.id].stock"
-              [style.border]="erreurs[produit.id]?.stock ? '2px solid red' : ''"
-              placeholder="Ajouter/Enlever" style="width:100px;" />
-            @if (erreurs[produit.id]?.stock) {
-              <div style="color:red; font-size:12px;">{{ erreurs[produit.id].stock }}</div>
-            }
-          </td>
-          <td>
-            @if (modifications[produit.id].type !== 'retrait-par-invendus') {
-              <input type="number" [(ngModel)]="modifications[produit.id].prix"
-                [style.border]="erreurs[produit.id]?.prix ? '2px solid red' : ''"
-                placeholder="Prix" style="width:80px;" />
-              @if (erreurs[produit.id]?.prix) {
-                <div style="color:red; font-size:12px;">{{ erreurs[produit.id].prix }}</div>
-              }
-            } @else {
-              <span style="color:gray;">0 €</span>
-            }
-          </td>
-          <td>
-            <input type="number" [(ngModel)]="modifications[produit.id].promo"
-              [style.border]="erreurs[produit.id]?.promo ? '2px solid red' : ''"
-              placeholder="% promo" style="width:80px;" min="0" max="100" />
-            @if (erreurs[produit.id]?.promo) {
-              <div style="color:red; font-size:12px;">{{ erreurs[produit.id].promo }}</div>
-            }
-          </td>
-          <td>
-            <button (click)="envoyerProduit(produit)">Envoyer</button>
-          </td>
+          <th>Nom</th>
+          <th>Prix</th>
+          <th>Prix promo</th>
+          <th>% promo</th>
+          <th>Stock</th>
+          <th>Vendus</th>
+          <th>Commentaires</th>
+          <th>Type opération</th>
+          <th>Modifier stock</th>
+          <th>Prix associé</th>
+          <th>Modifier % promo</th>
+          <th>Action</th>
         </tr>
-      }
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        @for (produit of poissons; track produit.id) {
+          <tr>
+            <td><b>{{ produit.nom }}</b></td>
+            <td>{{ produit.prix }} €</td>
+            <td>
+              @if (produit.enPromotion) {
+                <span class="badge-promo">{{ produit.prixPromotion }} €</span>
+              } @else {
+                <span class="badge-normal">—</span>
+              }
+            </td>
+            <td>
+              @if (produit.enPromotion) {
+                <span class="badge-promo">{{ produit.pourcentagePromotion }} %</span>
+              } @else {
+                <span class="badge-normal">—</span>
+              }
+            </td>
+            <td>{{ produit.quantiteStock }}</td>
+            <td>{{ produit.nombreVendus }}</td>
+            <td>{{ produit.commentaires }}</td>
+            <td>
+              <select [(ngModel)]="modifications[produit.id].type">
+                <option value="ajout">Ajout</option>
+                <option value="retrait-par-vente">Retrait vente</option>
+                <option value="retrait-par-invendus">Invendus</option>
+              </select>
+            </td>
+            <td>
+              <input type="number" [(ngModel)]="modifications[produit.id].stock"
+                [style.border-color]="erreurs[produit.id]?.stock ? 'red' : ''"
+                placeholder="Quantité" />
+              @if (erreurs[produit.id]?.stock) {
+                <div class="erreur-msg">{{ erreurs[produit.id].stock }}</div>
+              }
+            </td>
+            <td>
+              @if (modifications[produit.id].type !== 'retrait-par-invendus') {
+                <input type="number" [(ngModel)]="modifications[produit.id].prix"
+                  [style.border-color]="erreurs[produit.id]?.prix ? 'red' : ''"
+                  placeholder="Prix" />
+                @if (erreurs[produit.id]?.prix) {
+                  <div class="erreur-msg">{{ erreurs[produit.id].prix }}</div>
+                }
+              } @else {
+                <span class="badge-normal">0 €</span>
+              }
+            </td>
+            <td>
+              <input type="number" [(ngModel)]="modifications[produit.id].promo"
+                [style.border-color]="erreurs[produit.id]?.promo ? 'red' : ''"
+                placeholder="%" />
+              @if (erreurs[produit.id]?.promo) {
+                <div class="erreur-msg">{{ erreurs[produit.id].promo }}</div>
+              }
+            </td>
+            <td>
+              <button class="btn-envoyer" (click)="envoyerProduit(produit)">Envoyer</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 
   <!-- Tableau Fruits de Mer -->
-  <h2>Fruits de Mer</h2>
-  <table border="1" cellpadding="8" cellspacing="0" style="width:100%; margin-bottom:30px;">
-    <thead style="background-color: #f0f0f0;">
-      <tr>
-        <th>Nom</th>
-        <th>Prix</th>
-        <th>Prix promotion</th>
-        <th>% promotion</th>
-        <th>Stock</th>
-        <th>Vendus</th>
-        <th>Commentaires</th>
-        <th>Type opération</th>
-        <th>Modifier stock</th>
-        <th>Prix associé</th>
-        <th>Modifier % promo</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (produit of fruitsdermer; track produit.id) {
+  <h2>🦪 Fruits de Mer</h2>
+  <div class="table-wrapper">
+    <table>
+      <thead>
         <tr>
-          <td>{{ produit.nom }}</td>
-          <td>{{ produit.prix }} €</td>
-          <td>{{ produit.enPromotion ? produit.prixPromotion + ' €' : '-' }}</td>
-          <td>{{ produit.enPromotion ? produit.pourcentagePromotion + ' %' : '-' }}</td>
-          <td>{{ produit.quantiteStock }}</td>
-          <td>{{ produit.nombreVendus }}</td>
-          <td>{{ produit.commentaires }}</td>
-          <td>
-            <select [(ngModel)]="modifications[produit.id].type" style="padding: 5px;">
-              <option value="ajout">Ajout</option>
-              <option value="retrait-par-vente">Retrait par vente</option>
-              <option value="retrait-par-invendus">Retrait invendus</option>
-            </select>
-          </td>
-          <td>
-            <input type="number" [(ngModel)]="modifications[produit.id].stock"
-              [style.border]="erreurs[produit.id]?.stock ? '2px solid red' : ''"
-              placeholder="Ajouter/Enlever" style="width:100px;" />
-            @if (erreurs[produit.id]?.stock) {
-              <div style="color:red; font-size:12px;">{{ erreurs[produit.id].stock }}</div>
-            }
-          </td>
-          <td>
-            @if (modifications[produit.id].type !== 'retrait-par-invendus') {
-              <input type="number" [(ngModel)]="modifications[produit.id].prix"
-                [style.border]="erreurs[produit.id]?.prix ? '2px solid red' : ''"
-                placeholder="Prix" style="width:80px;" />
-              @if (erreurs[produit.id]?.prix) {
-                <div style="color:red; font-size:12px;">{{ erreurs[produit.id].prix }}</div>
-              }
-            } @else {
-              <span style="color:gray;">0 €</span>
-            }
-          </td>
-          <td>
-            <input type="number" [(ngModel)]="modifications[produit.id].promo"
-              [style.border]="erreurs[produit.id]?.promo ? '2px solid red' : ''"
-              placeholder="% promo" style="width:80px;" min="0" max="100" />
-            @if (erreurs[produit.id]?.promo) {
-              <div style="color:red; font-size:12px;">{{ erreurs[produit.id].promo }}</div>
-            }
-          </td>
-          <td>
-            <button (click)="envoyerProduit(produit)">Envoyer</button>
-          </td>
+          <th>Nom</th>
+          <th>Prix</th>
+          <th>Prix promo</th>
+          <th>% promo</th>
+          <th>Stock</th>
+          <th>Vendus</th>
+          <th>Commentaires</th>
+          <th>Type opération</th>
+          <th>Modifier stock</th>
+          <th>Prix associé</th>
+          <th>Modifier % promo</th>
+          <th>Action</th>
         </tr>
-      }
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        @for (produit of fruitsdermer; track produit.id) {
+          <tr>
+            <td><b>{{ produit.nom }}</b></td>
+            <td>{{ produit.prix }} €</td>
+            <td>
+              @if (produit.enPromotion) {
+                <span class="badge-promo">{{ produit.prixPromotion }} €</span>
+              } @else {
+                <span class="badge-normal">—</span>
+              }
+            </td>
+            <td>
+              @if (produit.enPromotion) {
+                <span class="badge-promo">{{ produit.pourcentagePromotion }} %</span>
+              } @else {
+                <span class="badge-normal">—</span>
+              }
+            </td>
+            <td>{{ produit.quantiteStock }}</td>
+            <td>{{ produit.nombreVendus }}</td>
+            <td>{{ produit.commentaires }}</td>
+            <td>
+              <select [(ngModel)]="modifications[produit.id].type">
+                <option value="ajout">Ajout</option>
+                <option value="retrait-par-vente">Retrait vente</option>
+                <option value="retrait-par-invendus">Invendus</option>
+              </select>
+            </td>
+            <td>
+              <input type="number" [(ngModel)]="modifications[produit.id].stock"
+                [style.border-color]="erreurs[produit.id]?.stock ? 'red' : ''"
+                placeholder="Quantité" />
+              @if (erreurs[produit.id]?.stock) {
+                <div class="erreur-msg">{{ erreurs[produit.id].stock }}</div>
+              }
+            </td>
+            <td>
+              @if (modifications[produit.id].type !== 'retrait-par-invendus') {
+                <input type="number" [(ngModel)]="modifications[produit.id].prix"
+                  [style.border-color]="erreurs[produit.id]?.prix ? 'red' : ''"
+                  placeholder="Prix" />
+                @if (erreurs[produit.id]?.prix) {
+                  <div class="erreur-msg">{{ erreurs[produit.id].prix }}</div>
+                }
+              } @else {
+                <span class="badge-normal">0 €</span>
+              }
+            </td>
+            <td>
+              <input type="number" [(ngModel)]="modifications[produit.id].promo"
+                [style.border-color]="erreurs[produit.id]?.promo ? 'red' : ''"
+                placeholder="%" />
+              @if (erreurs[produit.id]?.promo) {
+                <div class="erreur-msg">{{ erreurs[produit.id].promo }}</div>
+              }
+            </td>
+            <td>
+              <button class="btn-envoyer" (click)="envoyerProduit(produit)">Envoyer</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 
   <!-- Tableau Crustacés -->
-  <h2>Crustacés</h2>
-  <table border="1" cellpadding="8" cellspacing="0" style="width:100%; margin-bottom:30px;">
-    <thead style="background-color: #f0f0f0;">
-      <tr>
-        <th>Nom</th>
-        <th>Prix</th>
-        <th>Prix promotion</th>
-        <th>% promotion</th>
-        <th>Stock</th>
-        <th>Vendus</th>
-        <th>Commentaires</th>
-        <th>Type opération</th>
-        <th>Modifier stock</th>
-        <th>Prix associé</th>
-        <th>Modifier % promo</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (produit of crustaces; track produit.id) {
+  <h2>🦞 Crustacés</h2>
+  <div class="table-wrapper">
+    <table>
+      <thead>
         <tr>
-          <td>{{ produit.nom }}</td>
-          <td>{{ produit.prix }} €</td>
-          <td>{{ produit.enPromotion ? produit.prixPromotion + ' €' : '-' }}</td>
-          <td>{{ produit.enPromotion ? produit.pourcentagePromotion + ' %' : '-' }}</td>
-          <td>{{ produit.quantiteStock }}</td>
-          <td>{{ produit.nombreVendus }}</td>
-          <td>{{ produit.commentaires }}</td>
-          <td>
-            <select [(ngModel)]="modifications[produit.id].type" style="padding: 5px;">
-              <option value="ajout">Ajout</option>
-              <option value="retrait-par-vente">Retrait par vente</option>
-              <option value="retrait-par-invendus">Retrait invendus</option>
-            </select>
-          </td>
-          <td>
-            <input type="number" [(ngModel)]="modifications[produit.id].stock"
-              [style.border]="erreurs[produit.id]?.stock ? '2px solid red' : ''"
-              placeholder="Ajouter/Enlever" style="width:100px;" />
-            @if (erreurs[produit.id]?.stock) {
-              <div style="color:red; font-size:12px;">{{ erreurs[produit.id].stock }}</div>
-            }
-          </td>
-          <td>
-            @if (modifications[produit.id].type !== 'retrait-par-invendus') {
-              <input type="number" [(ngModel)]="modifications[produit.id].prix"
-                [style.border]="erreurs[produit.id]?.prix ? '2px solid red' : ''"
-                placeholder="Prix" style="width:80px;" />
-              @if (erreurs[produit.id]?.prix) {
-                <div style="color:red; font-size:12px;">{{ erreurs[produit.id].prix }}</div>
-              }
-            } @else {
-              <span style="color:gray;">0 €</span>
-            }
-          </td>
-          <td>
-            <input type="number" [(ngModel)]="modifications[produit.id].promo"
-              [style.border]="erreurs[produit.id]?.promo ? '2px solid red' : ''"
-              placeholder="% promo" style="width:80px;" min="0" max="100" />
-            @if (erreurs[produit.id]?.promo) {
-              <div style="color:red; font-size:12px;">{{ erreurs[produit.id].promo }}</div>
-            }
-          </td>
-          <td>
-            <button (click)="envoyerProduit(produit)">Envoyer</button>
-          </td>
+          <th>Nom</th>
+          <th>Prix</th>
+          <th>Prix promo</th>
+          <th>% promo</th>
+          <th>Stock</th>
+          <th>Vendus</th>
+          <th>Commentaires</th>
+          <th>Type opération</th>
+          <th>Modifier stock</th>
+          <th>Prix associé</th>
+          <th>Modifier % promo</th>
+          <th>Action</th>
         </tr>
-      }
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        @for (produit of crustaces; track produit.id) {
+          <tr>
+            <td><b>{{ produit.nom }}</b></td>
+            <td>{{ produit.prix }} €</td>
+            <td>
+              @if (produit.enPromotion) {
+                <span class="badge-promo">{{ produit.prixPromotion }} €</span>
+              } @else {
+                <span class="badge-normal">—</span>
+              }
+            </td>
+            <td>
+              @if (produit.enPromotion) {
+                <span class="badge-promo">{{ produit.pourcentagePromotion }} %</span>
+              } @else {
+                <span class="badge-normal">—</span>
+              }
+            </td>
+            <td>{{ produit.quantiteStock }}</td>
+            <td>{{ produit.nombreVendus }}</td>
+            <td>{{ produit.commentaires }}</td>
+            <td>
+              <select [(ngModel)]="modifications[produit.id].type">
+                <option value="ajout">Ajout</option>
+                <option value="retrait-par-vente">Retrait vente</option>
+                <option value="retrait-par-invendus">Invendus</option>
+              </select>
+            </td>
+            <td>
+              <input type="number" [(ngModel)]="modifications[produit.id].stock"
+                [style.border-color]="erreurs[produit.id]?.stock ? 'red' : ''"
+                placeholder="Quantité" />
+              @if (erreurs[produit.id]?.stock) {
+                <div class="erreur-msg">{{ erreurs[produit.id].stock }}</div>
+              }
+            </td>
+            <td>
+              @if (modifications[produit.id].type !== 'retrait-par-invendus') {
+                <input type="number" [(ngModel)]="modifications[produit.id].prix"
+                  [style.border-color]="erreurs[produit.id]?.prix ? 'red' : ''"
+                  placeholder="Prix" />
+                @if (erreurs[produit.id]?.prix) {
+                  <div class="erreur-msg">{{ erreurs[produit.id].prix }}</div>
+                }
+              } @else {
+                <span class="badge-normal">0 €</span>
+              }
+            </td>
+            <td>
+              <input type="number" [(ngModel)]="modifications[produit.id].promo"
+                [style.border-color]="erreurs[produit.id]?.promo ? 'red' : ''"
+                placeholder="%" />
+              @if (erreurs[produit.id]?.promo) {
+                <div class="erreur-msg">{{ erreurs[produit.id].promo }}</div>
+              }
+            </td>
+            <td>
+              <button class="btn-envoyer" (click)="envoyerProduit(produit)">Envoyer</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 
-  <!-- Bouton global -->
-  <button (click)="envoyerTout()" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer; font-size: 16px;">
-    Envoyer données
+  <button class="btn-envoyer-tout" (click)="envoyerTout()">
+    🚀 Envoyer toutes les modifications
   </button>
 
 </div>

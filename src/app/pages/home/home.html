@@ -1,4 +1,40 @@
-<div style="padding: 20px;">
-  <h1>Bienvenue sur le Back-Office</h1>
-  <p>Bateau de Thibault - Gestion des points relais</p>
+<div style="min-height: 100vh; background: #f8f9fa;">
+
+  <!-- Hero Section -->
+  <div style="background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); padding: 80px 40px; text-align: center; color: white;">
+    <div style="font-size: 80px; margin-bottom: 20px;">🚢</div>
+    <h1 style="font-size: 42px; font-weight: 800; margin: 0 0 15px 0; letter-spacing: 1px;">Bateau de Thibault</h1>
+    <p style="font-size: 18px; color: rgba(255,255,255,0.6); margin: 0 0 40px 0;">Plateforme de gestion des points relais — Administration centrale</p>
+    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+      <a routerLink="/details" style="background: #007bff; color: white; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-size: 16px; font-weight: 600;">📦 Gérer les produits</a>
+      <a routerLink="/dashboard" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-size: 16px; font-weight: 600;">📊 Voir le dashboard</a>
+    </div>
+  </div>
+
+  <!-- Stats Section -->
+  <div style="padding: 60px 40px; max-width: 1200px; margin: 0 auto;">
+    <h2 style="text-align: center; color: #1a1a2e; font-size: 28px; margin-bottom: 40px;">Vue d'ensemble</h2>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px;">
+      
+      <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); border-top: 4px solid #007bff; text-align: center;">
+        <div style="font-size: 40px; margin-bottom: 15px;">🐟</div>
+        <h3 style="color: #1a1a2e; margin: 0 0 10px 0;">Poissons</h3>
+        <p style="color: #666; margin: 0; font-size: 14px;">Gestion du stock et des prix</p>
+      </div>
+
+      <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); border-top: 4px solid #28a745; text-align: center;">
+        <div style="font-size: 40px; margin-bottom: 15px;">🦪</div>
+        <h3 style="color: #1a1a2e; margin: 0 0 10px 0;">Fruits de Mer</h3>
+        <p style="color: #666; margin: 0; font-size: 14px;">Gestion du stock et des prix</p>
+      </div>
+
+      <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); border-top: 4px solid #ff6b35; text-align: center;">
+        <div style="font-size: 40px; margin-bottom: 15px;">🦞</div>
+        <h3 style="color: #1a1a2e; margin: 0 0 10px 0;">Crustacés</h3>
+        <p style="color: #666; margin: 0; font-size: 14px;">Gestion du stock et des prix</p>
+      </div>
+
+    </div>
+  </div>
+
 </div>
